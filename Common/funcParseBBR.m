@@ -7,6 +7,13 @@ Usage
 
 result=funcParseBBR('<PATH to.bbr>');
 
+A .mat file will be saved in the source directory which contains the output
+struct containing the parsed data. This .mat file will be named similar to
+the source file with the addition of the _DATA.mat suffix added to it.
+
+
+
+
 
 The MIT License (MIT)
 Copyright (c) <2016> <Theodore Tzanetos>
