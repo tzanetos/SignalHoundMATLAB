@@ -8,7 +8,7 @@ I also recommend checking out several of the pre-existing Github repos for Signa
 
 Usage:
 
-result=funcParseBBR('<PATH to.bbr>');
+result=funcParseBBR('PATH TO BBR FILE');
 
 result = 
 
@@ -21,4 +21,5 @@ result =
 
 
 nFBins = Number of frequency bins
+
 nTBins= Number of time bins
