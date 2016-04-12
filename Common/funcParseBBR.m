@@ -149,7 +149,7 @@ outp.time = time;
 %% Saving
 
 disp('Saving in source path...')
-save(fullfile(sourceDir,strcat(sourceFileName,'_DATA')),'outp');
+save(fullfile(sourceDir,strcat(sourceFileName,'_DATA')),'outp','-v7.3');
 disp('Saving Done!')
 %disp(outp)
 
