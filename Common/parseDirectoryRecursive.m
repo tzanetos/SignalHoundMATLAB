@@ -1,5 +1,5 @@
-function [ output_args ] = parseDirectory( varargin )
-%PARSEDIRECTORY Summary of this function goes here
+function [ output_args ] = parseDirectoryRecursive( varargin )
+%parseDirectoryRecursive Summary of this function goes here
 %   Detailed explanation goes here
 
 
@@ -36,12 +36,15 @@ end
 
 files = dir(sourcePath);
 for file = files'
-    if(file.isdir==0)
-        ffN=fullfile(sourcePath,file.name);
-        [sourceDir,sourceFileName,ext]=fileparts(ffN);
+    ffN=fullfile(sourcePath,file.name);
+    [sourceDir,sourceFileName,ext]=fileparts(ffN);
+    if(file.isdir==0)        
         if(strcmp(ext,'.bbr'))
+            sprintf('Parsing %s',ffN)
             funcParseBBR(ffN);
         end
+    elseif(~strcmp(file.name,'.') && ~strcmp(file.name,'..'))
+        parseDirectoryRecursive(ffN);
     end
 end
 

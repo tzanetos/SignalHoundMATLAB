@@ -107,7 +107,7 @@ header.trace_len = helper_readParseCast(A,4,'int32');
 header.trace_start_freq = helper_readParseCast(A,8,'double');
 header.bin_size = helper_readParseCast(A,8,'double');
 
-disp(header);
+% disp(header);
 
 %% Data/Body parsing
 %8 bytes are the 64 bit integer, (standard ms from epoch time, when the sweep was captured)
@@ -124,8 +124,8 @@ maxTrace = zeros(header.trace_len,header.sweep_count);
 [B,count] = fread(fileID,capLen,'uint8=>uint8');
 while(count == capLen)
 %     disp(sprintf('Parsing sweep %d of %d', i,header.sweep_count));
-    completion=round(100*i/double(header.sweep_count));
-    fprintf('%d%% Complete\n',completion);
+%     completion=round(100*i/double(header.sweep_count));
+%     fprintf('%d%% Complete\n',completion);
     time(i) = helper_readParseCast(B,8,'uint64',true)/1000;
     minTrace(:,i) = helper_readParseCast(B,header.trace_len*4,'single');
     maxTrace(:,i) = helper_readParseCast(B,header.trace_len*4,'single');
@@ -146,11 +146,34 @@ outp.minTrace = minTrace;
 outp.maxTrace = maxTrace;
 outp.time = time;
 
+
+%% OFF BY ONE HACK IN FREQ LENGTH
+freqTraceLenDiff = length(outp.maxTrace)-length(outp.freq);
+if(freqTraceLenDiff==0)
+%     disp('No Length Mismatch')
+elseif(freqTraceLenDiff == 1);
+    disp('maxTrace longer that freq by 1');
+    tailEnd = outp.freq(end);
+    outp.freq =[outp.freq;tailEnd+header.bin_size];
+elseif(freqTraceLenDiff == -1)
+    disp('freq longer than maxTrace by 1');
+    tailLen = length(outp.freq);
+    outp.freq =outp.freq(1:tailLen-1);
+else
+    error(sprintf('freqTraceLenDiff = %d',freqTraceLenDiff));
+end
+
 %% Saving
 
 disp('Saving in source path...')
 save(fullfile(sourceDir,strcat(sourceFileName,'_DATA')),'outp','-v7.3');
 disp('Saving Done!')
+
+
+%% Generate Plots
+genSpectralPlots(outp,sourceDir);
+
+%% 
 %disp(outp)
 
 end
