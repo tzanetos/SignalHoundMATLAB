@@ -171,7 +171,7 @@ disp('Saving Done!')
 
 
 %% Generate Plots
-genSpectralPlots(outp,sourceDir);
+genSpectralPlots(outp,sourceDir,sourceFileName);
 
 %% 
 %disp(outp)
