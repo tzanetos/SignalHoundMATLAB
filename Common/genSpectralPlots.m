@@ -84,8 +84,9 @@ for i=1:length(range.f1.actual)
     text((range.f2.displayRange(i)-range.f1.displayRange(i))*0.90+range.f1.displayRange(i),0,0,plotText,'HorizontalAlignment','right');
     title(sprintf('%s\nPlot:%s',sourceTitle,char(range.subtitle(i))));
     xlim([range.f1.displayRange(i), range.f2.displayRange(i)])
-    zlim([-110 0]);
+    zlim([-110 -20]);
     view(-22,40)
+    colorbar;
 %     drawnow; 
 
     saveas(h,[outputDir,char(range.subtitle(i)),'.jpg'])
