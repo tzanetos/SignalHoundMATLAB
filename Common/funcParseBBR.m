@@ -51,6 +51,8 @@ sourcePath=fullfile(sourceDir,[sourceFileName ext]);
 
 fileID = fopen(sourcePath,'r');
 
+disp(['Parsing ',sourceFileName])
+
 
 %% Header Reference 
 %{ 
@@ -148,7 +150,7 @@ outp.time = time;
 
 
 %% OFF BY ONE HACK IN FREQ LENGTH
-freqTraceLenDiff = length(outp.maxTrace)-length(outp.freq);
+freqTraceLenDiff = size(outp.maxTrace,1)-length(outp.freq);
 if(freqTraceLenDiff==0)
 %     disp('No Length Mismatch')
 elseif(freqTraceLenDiff == 1);
