@@ -1,6 +1,9 @@
 # SignalHoundMATLAB
 Matlab-based post data parser for the SignalHound BB60C spectrum analyzer .bbr files.
 
+TODO:
+-Add general min/max auto plotting plot scripts
+
 
 I am developing a simple open source set of scripts for parsing the BBR files in Matlab/Octave. My script takes the path to a .bbr file and produces a struct containing the header object, maxTrace, minTrace, time, and frequency.
 
